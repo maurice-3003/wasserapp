@@ -1,0 +1,19 @@
+:root {
+  --wbp-orange: rgb(205, 114, 102);
+  --container-padding: 0.4em;
+  --container-margin: 0.4em;
+  --base-border-radius: 0.5em;
+  --base-font-size: 1.2em;
+}
+
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box; 
+  font-family: Helvetica, Arial, sans-serif;
+  list-style-type: none;
+}
+
+#app {
+  height: 90vh;
+}
