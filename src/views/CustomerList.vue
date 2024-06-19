@@ -1,5 +1,5 @@
 <template>
-  <LoadingAnimation v-if="isLoading" />
+  <LoadingAnimation v-if="customersLoading" />
   <div v-else class="customers-container">
     <table>
       <thead>
@@ -32,44 +32,25 @@
 </template>
 
 <script setup>
-import { ref, onMounted, computed } from 'vue';
-import api from '@/services/api';
+import { onMounted } from 'vue';
 import { useRouter } from 'vue-router';
+import { useCustomersStore } from '@/stores/CustomersStore';
+import { storeToRefs } from 'pinia';
 import LoadingAnimation from '@/components/LoadingAnimation.vue';
 
+const customersStore = useCustomersStore();
+const { loadCustomers } = customersStore;
+const {
+  customersLoading,
+  nameQuery,
+  streetQuery,
+  filteredCustomers
+  } = storeToRefs(customersStore);
+
 const router = useRouter();
-const customers = ref([]);
-const nameQuery = ref('');
-const streetQuery = ref('');
-const isLoading = ref(true);
 
-onMounted (async () => {
-  try {
-    const response = await api.getCustomers();
-    customers.value = response.data;
-  } catch (error) {
-    console.error(error);
-  } finally {
-    isLoading.value = false;
-  }
-});
-
-const sortedCustomers = computed(() => {
-  return customers.value.toSorted((a, b) => {
-    return a.nameID.localeCompare(b.nameID);
-  });
-});
-
-const filteredCustomers = computed(() => {
-  if (!nameQuery.value.trim() && !streetQuery.value.trim()) {
-    return sortedCustomers.value;
-  }
-  const nameQueryLower = nameQuery.value.toLowerCase();
-  const streetQueryLower = streetQuery.value.toLowerCase();
-  return sortedCustomers.value.filter(customer => {
-    return customer.nameID.toLowerCase().includes(nameQueryLower) &&
-      customer.streetAddress.toLowerCase().includes(streetQueryLower);
-  });
+onMounted (() => {
+  loadCustomers();
 });
 
 const goToCustomerById = (id) => {

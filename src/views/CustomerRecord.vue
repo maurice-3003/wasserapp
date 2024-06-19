@@ -1,14 +1,36 @@
 <template>
   <LoadingAnimation v-if="isLoading" />
   <div v-else class="customer-record-container">
-    <CustomerRecordHeader :customer="customer" :customerChanged="customerChanged"
-      @update="updateCustomerValue" @updateDbEntry="updateCustomerDbEntry" />
-    <CustomerAddressCard :customer="customer" @update="updateCustomerValue" />
-    <CustomerContactCard :customer="customer" @update="updateCustomerValue" />
-    <BedInfoCard :customer="customer" @update="updateCustomerValue" />
-    <CustomerPaymentInfoCard :customer="customer" @update="updateCustomerValue" />
-    <CustomerServiceCard :customer="customer" @update="updateCustomerValue" />
-    <CustomerNotes :customer="customer" @update="updateCustomerValue" />
+    <CustomerRecordHeader
+      :customer="customer"
+      :customerChanged="customerChanged"
+      @update="updateCustomerValue"
+      @updateDbEntry="updateCustomerDbEntry"
+    />
+    <CustomerAddressCard
+      :customer="customer"
+      @update="updateCustomerValue"
+    />
+    <CustomerContactCard
+      :customer="customer"
+      @update="updateCustomerValue"
+    />
+    <BedInfoCard
+      :customer="customer"
+      @update="updateCustomerValue"
+    />
+    <CustomerPaymentInfoCard
+      :customer="customer"
+      @update="updateCustomerValue"
+    />
+    <CustomerServiceCard
+      :customer="customer"
+      @update="updateCustomerValue"
+    />
+    <CustomerNotes
+      :customer="customer"
+      @update="updateCustomerValue"
+    />
   </div>
 </template>
 
