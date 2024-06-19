@@ -1,8 +1,8 @@
 <template>
-  <div class="app-container">
+  <main class="app-container">
     <BaseNavbar />
     <RouterView />
-  </div>
+  </main>
 </template>
 
 <script setup>
