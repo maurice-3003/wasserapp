@@ -1,35 +1,15 @@
 <template>
   <div class="customer-record-container">
     <CustomerRecordHeader
-      :customer="currentCustomer"
       :customerChanged="customerChanged"
-      @update="updateCustomerValue"
       @updateDbEntry="updateCustomerDbEntry"
     />
-    <CustomerAddressCard
-      :customer="currentCustomer"
-      @update="updateCustomerValue"
-    />
-    <CustomerContactCard
-      :customer="currentCustomer"
-      @update="updateCustomerValue"
-    />
-    <BedInfoCard
-      :customer="currentCustomer"
-      @update="updateCustomerValue"
-    />
-    <CustomerPaymentInfoCard
-      :customer="currentCustomer"
-      @update="updateCustomerValue"
-    />
-    <CustomerServiceCard
-      :customer="currentCustomer"
-      @update="updateCustomerValue"
-    />
-    <CustomerNotes
-      :customer="currentCustomer"
-      @update="updateCustomerValue"
-    />
+    <CustomerAddressCard />
+    <CustomerContactCard />
+    <BedInfoCard />
+    <CustomerPaymentInfoCard />
+    <CustomerServiceCard />
+    <CustomerNotes />
   </div>
 </template>
 
