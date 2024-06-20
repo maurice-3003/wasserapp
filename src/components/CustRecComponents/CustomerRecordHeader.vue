@@ -2,33 +2,23 @@
   <div class="customer-record-header">
     <div class="input-container">
       <input type="text" id="cust-header-card-name-id"
-        v-model="localCustomer.nameID" @input="emitUpdate" required>
+        v-model="currentCustomer.nameID" required>
     </div>
     <div class="button-container" v-if="customerChanged">
-      <button @click="emitUpdateDbEntry">Änderungen speichern</button>
+      <button @click="updateCustomerDbEntry">Änderungen speichern</button>
     </div>
   </div>
 </template>
 
 <script setup>
-import { ref, watch } from 'vue';
+import { useCustomersStore } from '@/stores/CustomersStore';
+import { storeToRefs } from 'pinia';
 
-const props = defineProps(['customer', 'customerChanged']);
-const emits = defineEmits(['update', 'updateDbEntry']);
+const customerStore = useCustomersStore();
+const { currentCustomer } = storeToRefs(customerStore);
+const { updateCustomerDbEntry } = customerStore;
 
-const localCustomer = ref({ ...props.customer });
-
-watch(() => props.customer, (updatedCustomer) => {
-  localCustomer.value = { ...updatedCustomer };
-});
-
-function emitUpdate() {
-  emits('update', { updatedCustomer: localCustomer.value});
-}
-
-function emitUpdateDbEntry() {
-  emits('updateDbEntry');
-}
+const props = defineProps(['customerChanged']);
 </script>
 
 <style scoped>

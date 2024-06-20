@@ -1,5 +1,6 @@
 <template>
-  <main class="app-container">
+  <LoadingAnimation v-if="customersLoading" />
+  <main v-else class="app-container">
     <BaseNavbar />
     <RouterView />
   </main>
@@ -7,7 +8,16 @@
 
 <script setup>
 import BaseNavbar from './components/BaseNavbar.vue'
+import LoadingAnimation from './components/LoadingAnimation.vue';
 import { RouterView } from 'vue-router';
+import { useCustomersStore } from './stores/CustomersStore';
+import { storeToRefs } from 'pinia';
+import { onMounted } from 'vue';
+
+const customersStore = useCustomersStore();
+const { loadCustomers } = customersStore;
+const { customersLoading } = storeToRefs(customersStore);
+onMounted(() => loadCustomers());
 </script>
 
 <style scoped>

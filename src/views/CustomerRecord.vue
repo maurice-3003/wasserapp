@@ -1,44 +1,42 @@
 <template>
-  <LoadingAnimation v-if="isLoading" />
-  <div v-else class="customer-record-container">
+  <div class="customer-record-container">
     <CustomerRecordHeader
-      :customer="customer"
+      :customer="currentCustomer"
       :customerChanged="customerChanged"
       @update="updateCustomerValue"
       @updateDbEntry="updateCustomerDbEntry"
     />
     <CustomerAddressCard
-      :customer="customer"
+      :customer="currentCustomer"
       @update="updateCustomerValue"
     />
     <CustomerContactCard
-      :customer="customer"
+      :customer="currentCustomer"
       @update="updateCustomerValue"
     />
     <BedInfoCard
-      :customer="customer"
+      :customer="currentCustomer"
       @update="updateCustomerValue"
     />
     <CustomerPaymentInfoCard
-      :customer="customer"
+      :customer="currentCustomer"
       @update="updateCustomerValue"
     />
     <CustomerServiceCard
-      :customer="customer"
+      :customer="currentCustomer"
       @update="updateCustomerValue"
     />
     <CustomerNotes
-      :customer="customer"
+      :customer="currentCustomer"
       @update="updateCustomerValue"
     />
   </div>
 </template>
 
 <script setup>
-import { ref, onMounted, computed } from 'vue';
+import { ref, computed, onMounted } from 'vue';
 import { useRoute } from 'vue-router';
-import api from '@/services/api';
-import LoadingAnimation from '@/components/LoadingAnimation.vue';
+import { useCustomersStore } from '@/stores/CustomersStore';
 import CustomerAddressCard from '@/components/CustRecComponents/CustomerAddressCard.vue';
 import CustomerContactCard from '@/components/CustRecComponents/CustomerContactCard.vue';
 import BedInfoCard from '@/components/CustRecComponents/BedInfoCard.vue';
@@ -46,42 +44,34 @@ import CustomerPaymentInfoCard from '@/components/CustRecComponents/CustomerPaym
 import CustomerRecordHeader from '@/components/CustRecComponents/CustomerRecordHeader.vue';
 import CustomerServiceCard from '@/components/CustRecComponents/CustomerServiceCard.vue';
 import CustomerNotes from '@/components/CustRecComponents/CustomerNotes.vue';
+import { storeToRefs } from 'pinia';
+
+const customersStore = useCustomersStore();
+const { updateCustomerDbEntry } = customersStore;
+const { currentCustomerId, currentCustomer } = storeToRefs(customersStore);
 
 const route = useRoute();
 const id = ref(route.params.id);
-const customer = ref({});
-const origCustomer = ref({});
-const isLoading = ref(true);
+currentCustomerId.value = id.value;
+const origCustomer = ref(JSON.parse(JSON.stringify(currentCustomer.value)));
 
-onMounted (async () => {
-  try {
-    const response = await api.getCustomerDetails(id.value);
-    customer.value = response.data;
-    origCustomer.value = JSON.parse(JSON.stringify(response.data));
-  } catch (error) {
-    console.error(error);
-  } finally {
-  isLoading.value = false;
-  }
+onMounted(() => {
+  origCustomer.value = JSON.parse(JSON.stringify(currentCustomer.value));
 });
 
 const customerChanged = computed(() => {
-  return JSON.stringify(customer.value) !== JSON.stringify(origCustomer.value);
-})
+  // Implement a proper object comparison?
+  return JSON.stringify(currentCustomer.value) !==
+    JSON.stringify(origCustomer.value);
+});
+
+console.log('current: ', currentCustomer.value);
+console.log('orig: ', origCustomer.value);
 
 function updateCustomerValue(e) {
-  customer.value = { ...e.updatedCustomer };
+  currentCustomer.value = { ...e.updatedCustomer };
 }
 
-async function updateCustomerDbEntry() {
-  try {
-    await api.updateCustomerDetails(id.value, customer.value);
-    console.log('Update successful');
-    origCustomer.value = JSON.parse(JSON.stringify(customer.value));
-  } catch (error) {
-    console.error(error);
-  }
-}
 </script>
 
 <style scoped>

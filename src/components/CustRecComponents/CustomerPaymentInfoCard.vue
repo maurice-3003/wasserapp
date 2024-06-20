@@ -4,53 +4,43 @@
     <form autocomplete="off">
       <label for="cust-pay-info-card-bank-name">Bank:</label>
       <input type="text" id="cust-pay-info-card-bank-name"
-        name="bank-name" v-model="localCustomer.bankName"
+        name="bank-name" v-model="currentCustomer.bankName"
         @input="emitUpdate">
 
       <label for="cust-pay-info-card-bank-acc-no">Kontonummer:</label>
       <input type="text" id="cust-pay-info-card-bank-acc-no"
-        name="bank-acc-no" v-model="localCustomer.bankAccountNo"
+        name="bank-acc-no" v-model="currentCustomer.bankAccountNo"
         @input="emitUpdate">
 
       <label for="cust-pay-info-card-bank-sort-code">Bankleitzahl:</label>
       <input type="text" id="cust-pay-info-card-bank-sort-code"
-        name="bank-sort-code" v-model="localCustomer.bankSortCode"
+        name="bank-sort-code" v-model="currentCustomer.bankSortCode"
         @input="emitUpdate">
 
       <label for="cust-pay-info-card-iban">IBAN:</label>
       <input type="text" id="cust-pay-info-card-iban"
-        name="iban" v-model="localCustomer.iban"
+        name="iban" v-model="currentCustomer.iban"
         @input="emitUpdate">
 
       <label for="cust-pay-info-card-bic">BIC:</label>
       <input type="text" id="cust-pay-info-card-bic"
-        name="bic" v-model="localCustomer.bankIdentifierCode"
+        name="bic" v-model="currentCustomer.bankIdentifierCode"
         @input="emitUpdate">
 
       <label for="cust-pay-info-card-direct-debit">Lastschrift:</label>
       <input type="text" id="cust-pay-info-card-direct-debit"
-        name="direct-debit" v-model="localCustomer.directDebit"
+        name="direct-debit" v-model="currentCustomer.directDebit"
         @input="emitUpdate">
     </form>
   </div>
 </template>
 
 <script setup>
-import { ref, watch } from 'vue';
+import { useCustomersStore } from '@/stores/CustomersStore';
+import { storeToRefs } from 'pinia';
 
-const props = defineProps(['customer']);
-const emits = defineEmits(['emitUpdate']);
-
-const localCustomer = ref({ ...props.customer });
-
-watch(() => props.customer, (updatedCustomer) => {
-  localCustomer.value = updatedCustomer;
-})
-
-function emitUpdate() {
-  emits('emitUpdate', { updatedCustomer: localCustomer.value });
-}
-
+const customerStore = useCustomersStore();
+const { currentCustomer } = storeToRefs(customerStore);
 </script>
 
 <style scoped>

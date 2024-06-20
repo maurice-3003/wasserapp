@@ -17,6 +17,15 @@ export const useCustomersStore = defineStore('customers', () => {
       customersLoading.value = false;
     }
   }
+  async function updateCustomerDbEntry() {
+    try {
+      await api.updateCustomerDetails(id.value, customer.value);
+      console.log('Update successful');
+      origCustomer.value = JSON.parse(JSON.stringify(customer.value));
+    } catch (error) {
+      console.error(error);
+    }
+  }
 
   const sortedCustomers = computed(() => {
     return customers.value.toSorted((a, b) => {
@@ -38,13 +47,37 @@ export const useCustomersStore = defineStore('customers', () => {
     });
   });
 
+  const currentCustomerId = ref(null);
+  const currentIndex = computed(() => {
+    return sortedCustomers.value.findIndex(c => c._id === currentCustomerId.value);
+  });
+  const hasPreviousCustomer = computed(() => {
+    return currentIndex.value > 0;
+  });
+  const hasNextCustomer = computed(() => {
+    return currentIndex.value < sortedCustomers.value.length - 1;
+  });
+  const currentCustomer = computed(() => {
+    return sortedCustomers.value.find(c => c._id === currentCustomerId.value);
+  });
+  function selectCustomerById(id) {
+    return sortedCustomers.value.find(c => c._id === id);
+  }
+
   return {
     customers,
     customersLoading,
     loadCustomers,
+    updateCustomerDbEntry,
     sortedCustomers,
     nameQuery,
     streetQuery,
-    filteredCustomers
+    filteredCustomers,
+    currentCustomerId,
+    currentIndex,
+    hasPreviousCustomer,
+    hasNextCustomer,
+    currentCustomer,
+    selectCustomerById
   };
 });

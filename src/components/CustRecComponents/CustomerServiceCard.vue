@@ -4,47 +4,38 @@
     <form autocomplete="off">
       <label for="cust-service-card-care-cycle">Pflegeintervall:</label>
       <input type="text" id="cust-service-card-care-cycle"
-        name="care-cycle" v-model="localCustomer.careCycle"
+        name="care-cycle" v-model="currentCustomer.careCycle"
         @input="emitUpdate">
 
       <label for="cust-service-card-care-products">Bedarf:</label>
       <input type="text" id="cust-service-card-care-products"
-        name="care-products" v-model="localCustomer.requiredCareProducts"
+        name="care-products" v-model="currentCustomer.requiredCareProducts"
         @input="emitUpdate">
 
       <label for="cust-service-card-notification">Benachrichtigung:</label>
       <input type="text" id="cust-service-card-notification"
-        name="notification" v-model="localCustomer.careNotification"
+        name="notification" v-model="currentCustomer.careNotification"
         @input="emitUpdate">
 
       <label for="cust-service-card-driving-distance">Fahrstrecke:</label>
       <input type="text" id="cust-service-card-driving-distance"
-        name="driving-distance" v-model="localCustomer.drivingDistance"
+        name="driving-distance" v-model="currentCustomer.drivingDistance"
         @input="emitUpdate">
 
       <label for="cust-service-card-driving-time">Fahrzeit:</label>
       <input type="text" id="cust-service-card-driving-time"
-        name="driving-time" v-model="localCustomer.drivingTime"
+        name="driving-time" v-model="currentCustomer.drivingTime"
         @input="emitUpdate">
     </form>
   </div>
 </template>
 
 <script setup>
-import { ref, watch } from 'vue';
+import { useCustomersStore } from '@/stores/CustomersStore';
+import { storeToRefs } from 'pinia';
 
-const props = defineProps(['customer']);
-const emits = defineEmits(['update']);
-
-const localCustomer = ref({ ...props.customer });
-
-watch(() => props.customer, (updatedCustomer) => {
-  localCustomer.value = updatedCustomer;
-});
-
-function emitUpdate() {
-  emits('update', { updatedCustomer: localCustomer.value });
-}
+const customerStore = useCustomersStore();
+const { currentCustomer } = storeToRefs(customerStore);
 </script>
 
 <style scoped>

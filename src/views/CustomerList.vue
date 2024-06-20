@@ -1,6 +1,5 @@
 <template>
-  <LoadingAnimation v-if="customersLoading" />
-  <div v-else class="customers-container">
+  <div class="customers-container">
     <table>
       <thead>
         <tr>
@@ -20,7 +19,7 @@
       </thead>
       <tbody>
         <tr v-for="customer in filteredCustomers" :key="customer._id"
-          @click="goToCustomerById(customer._id)">
+          @click="navToCustomer(customer._id)">
           <td>{{ customer.nameID }}</td>
           <td>{{ customer.streetAddress }}</td>
           <td>{{ customer.zipCode }}</td>
@@ -32,28 +31,21 @@
 </template>
 
 <script setup>
-import { onMounted } from 'vue';
 import { useRouter } from 'vue-router';
 import { useCustomersStore } from '@/stores/CustomersStore';
 import { storeToRefs } from 'pinia';
-import LoadingAnimation from '@/components/LoadingAnimation.vue';
 
 const customersStore = useCustomersStore();
-const { loadCustomers } = customersStore;
 const {
-  customersLoading,
   nameQuery,
   streetQuery,
-  filteredCustomers
+  filteredCustomers,
+  currentCustomerId,
   } = storeToRefs(customersStore);
 
 const router = useRouter();
 
-onMounted (() => {
-  loadCustomers();
-});
-
-const goToCustomerById = (id) => {
+const navToCustomer = (id) => {
   router.push({
     name: 'Kundendetails',
     params: { id },
@@ -62,10 +54,6 @@ const goToCustomerById = (id) => {
 </script>
 
 <style scoped>
-LoadingAnimation {
-  justify-self: center;
-}
-
 .customers-container {
   border-radius: var(--base-border-radius);
   overflow: auto;
