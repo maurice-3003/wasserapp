@@ -14,7 +14,7 @@
 </template>
 
 <script setup>
-import { ref, computed, onMounted } from 'vue';
+import { ref, computed, onMounted, onUpdated } from 'vue';
 import { useRoute } from 'vue-router';
 import { useCustomersStore } from '@/stores/CustomersStore';
 import CustomerAddressCard from '@/components/CustRecComponents/CustomerAddressCard.vue';
@@ -28,30 +28,26 @@ import { storeToRefs } from 'pinia';
 
 const customersStore = useCustomersStore();
 const { updateCustomerDbEntry } = customersStore;
-const { currentCustomerId, currentCustomer } = storeToRefs(customersStore);
+const {
+  currentCustomerId,
+  currentCustomer,
+  originalCustomer
+ } = storeToRefs(customersStore);
 
 const route = useRoute();
 const id = ref(route.params.id);
 currentCustomerId.value = id.value;
-const origCustomer = ref(JSON.parse(JSON.stringify(currentCustomer.value)));
+// const origCustomer = ref(JSON.parse(JSON.stringify(currentCustomer.value)));
 
 onMounted(() => {
-  origCustomer.value = JSON.parse(JSON.stringify(currentCustomer.value));
+  originalCustomer.value = JSON.parse(JSON.stringify(currentCustomer.value));
 });
 
 const customerChanged = computed(() => {
   // Implement a proper object comparison?
   return JSON.stringify(currentCustomer.value) !==
-    JSON.stringify(origCustomer.value);
+    JSON.stringify(originalCustomer.value);
 });
-
-console.log('current: ', currentCustomer.value);
-console.log('orig: ', origCustomer.value);
-
-function updateCustomerValue(e) {
-  currentCustomer.value = { ...e.updatedCustomer };
-}
-
 </script>
 
 <style scoped>

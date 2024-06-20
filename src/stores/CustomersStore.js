@@ -60,9 +60,7 @@ export const useCustomersStore = defineStore('customers', () => {
   const currentCustomer = computed(() => {
     return sortedCustomers.value.find(c => c._id === currentCustomerId.value);
   });
-  function selectCustomerById(id) {
-    return sortedCustomers.value.find(c => c._id === id);
-  }
+  const originalCustomer = ref({});
 
   return {
     customers,
@@ -78,6 +76,6 @@ export const useCustomersStore = defineStore('customers', () => {
     hasPreviousCustomer,
     hasNextCustomer,
     currentCustomer,
-    selectCustomerById
+    originalCustomer
   };
 });
