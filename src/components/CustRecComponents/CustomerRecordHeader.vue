@@ -1,29 +1,3 @@
-<template>
-  <div class="customer-record-header">
-    <div>
-      <button
-        @click="goToPreviousCustomer"
-        :disabled="!hasPreviousCustomer"
-        ><<<<</button>
-    </div>
-    <div class="input-container">
-      <input type="text" id="cust-header-card-name-id"
-        v-model="currentCustomer.nameID" required>
-    </div>
-    <div>
-      <button
-        @click="goToNextCustomer"
-        :disabled="!hasNextCustomer"
-        >>>>></button>
-    </div>
-    <div class="button-container" v-if="customerChanged">
-      <button
-        @click="updateCustomerDbEntry"
-        >Änderungen speichern</button>
-    </div>
-  </div>
-</template>
-
 <script setup>
 import { useCustomersStore } from '@/stores/CustomersStore';
 import { storeToRefs } from 'pinia';
@@ -59,6 +33,32 @@ function goToPreviousCustomer() {
   router.push({ name: 'Kundendetails', params: { id: previousCustomer._id } });
 }
 </script>
+
+<template>
+  <div class="customer-record-header">
+    <div>
+      <button
+        @click="goToPreviousCustomer"
+        :disabled="!hasPreviousCustomer"
+        ><<<<</button>
+    </div>
+    <div class="input-container">
+      <input type="text" id="cust-header-card-name-id"
+        v-model="currentCustomer.nameID" required>
+    </div>
+    <div>
+      <button
+        @click="goToNextCustomer"
+        :disabled="!hasNextCustomer"
+        >>>>></button>
+    </div>
+    <div class="button-container" v-if="customerChanged">
+      <button
+        @click="updateCustomerDbEntry"
+        >Änderungen speichern</button>
+    </div>
+  </div>
+</template>
 
 <style scoped>
 .customer-record-header {

@@ -39,8 +39,7 @@ const customersStore = useCustomersStore();
 const {
   nameQuery,
   streetQuery,
-  filteredCustomers,
-  currentCustomerId,
+  filteredCustomers
   } = storeToRefs(customersStore);
 
 const router = useRouter();
@@ -57,12 +56,13 @@ const navToCustomer = (id) => {
 .customers-container {
   border-radius: var(--base-border-radius);
   overflow: auto;
+  flex: 1;
 }
 
 table {
   border: none;
   border-collapse: collapse;
-  table-layout: fixed;
+  table-layout: auto;
   width: 100%;
 }
 

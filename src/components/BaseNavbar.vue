@@ -1,3 +1,12 @@
+<script setup>
+import { computed } from 'vue';
+import { routes } from '../router/router';
+
+const navLinks = computed(() => 
+  routes.filter(route => route.meta && route.meta.navbarLink)
+);
+</script>
+
 <template>
   <div class="nav-container">
     <nav>
@@ -10,16 +19,6 @@
     </nav>
 </div>
 </template>
-
-<script setup>
-import { computed } from 'vue';
-import { routes } from '../router/router';
-import '@/assets/cards.css';
-
-const navLinks = computed(() => 
-  routes.filter(route => route.meta && route.meta.navbarLink)
-);
-</script>
 
 <style scoped>
 .nav-container {

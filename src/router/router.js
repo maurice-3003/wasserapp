@@ -1,32 +1,28 @@
 import { createRouter, createWebHistory } from 'vue-router';
-import HomePage from '../views/HomePage.vue';
-import CustomerList from '../views/CustomerList.vue';
-import OrderList from '../views/OrderList.vue'
-import CustomerRecord from '../views/CustomerRecord.vue';
 
 const routes = [
     {
         path: '/',
         name: 'Home',
-        component: HomePage,
+        component: () => import('@/views/HomePage.vue'),
         meta: { navbarLink: true }
     },
     {
         path: '/customers',
         name: 'Kundenstamm',
-        component: CustomerList,
+        component: () => import('@/views/CustomerList.vue'),
         meta: { navbarLink: true }
     },
     {
         path: '/orders',
         name: 'Bestellungen',
-        component: OrderList,
+        component: () => import('@/views/OrderList.vue'),
         meta: { navbarLink: true }
     },
     {
         path: '/customers/:id',
         name: 'Kundendetails',
-        component: CustomerRecord,
+        component: () => import('@/views/CustomerRecord.vue'),
         props: true
     }
 ];
