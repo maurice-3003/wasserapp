@@ -49,14 +49,14 @@ function goToNextCustomer() {
   const nextCustomer = sortedCustomers.value[currentIndex.value + 1];
   currentCustomerId.value = nextCustomer._id;
   originalCustomer.value = JSON.parse(JSON.stringify(nextCustomer));
-  //router.push({ name: 'Kundendetails', params: { id: nextCustomer._id } });
+  router.push({ name: 'Kundendetails', params: { id: nextCustomer._id } });
 }
 
 function goToPreviousCustomer() {
   const previousCustomer = sortedCustomers.value[currentIndex.value - 1];
   currentCustomerId.value = previousCustomer._id;
   originalCustomer.value = JSON.parse(JSON.stringify(previousCustomer));
-  //router.push({ name: 'Kundendetails', params: { id: previousCustomer._id } });
+  router.push({ name: 'Kundendetails', params: { id: previousCustomer._id } });
 }
 </script>
 

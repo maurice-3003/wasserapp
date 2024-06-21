@@ -19,9 +19,9 @@ export const useCustomersStore = defineStore('customers', () => {
   }
   async function updateCustomerDbEntry() {
     try {
-      await api.updateCustomerDetails(id.value, customer.value);
+      await api.updateCustomerDetails(currentCustomerId.value, currentCustomer.value);
       console.log('Update successful');
-      origCustomer.value = JSON.parse(JSON.stringify(customer.value));
+      originalCustomer.value = JSON.parse(JSON.stringify(currentCustomer.value));
     } catch (error) {
       console.error(error);
     }
@@ -41,9 +41,9 @@ export const useCustomersStore = defineStore('customers', () => {
     }
     const nameQueryLower = nameQuery.value.toLowerCase();
     const streetQueryLower = streetQuery.value.toLowerCase();
-    return sortedCustomers.value.filter(customer => {
-      return customer.nameID.toLowerCase().includes(nameQueryLower) &&
-        customer.streetAddress.toLowerCase().includes(streetQueryLower);
+    return sortedCustomers.value.filter(c => {
+      return c.nameID.toLowerCase().includes(nameQueryLower) &&
+        c.streetAddress.toLowerCase().includes(streetQueryLower);
     });
   });
 
