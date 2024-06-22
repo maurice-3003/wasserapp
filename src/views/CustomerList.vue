@@ -1,3 +1,21 @@
+<script setup>
+import { useRouter } from 'vue-router';
+import { useCustomersStore } from '@/stores/CustomersStore';
+import { storeToRefs } from 'pinia';
+
+const customersStore = useCustomersStore();
+
+const {
+  nameQuery,
+  streetQuery,
+  filteredCustomers
+  } = storeToRefs(customersStore);
+
+const { goToCustomerById } = customersStore;
+
+const router = useRouter();
+</script>
+
 <template>
   <div class="customers-container">
     <table>
@@ -19,7 +37,7 @@
       </thead>
       <tbody>
         <tr v-for="customer in filteredCustomers" :key="customer._id"
-          @click="navToCustomer(customer._id)">
+          @click="goToCustomerById(customer._id, router)">
           <td>{{ customer.nameID }}</td>
           <td>{{ customer.streetAddress }}</td>
           <td>{{ customer.zipCode }}</td>
@@ -29,28 +47,6 @@
     </table>
   </div>
 </template>
-
-<script setup>
-import { useRouter } from 'vue-router';
-import { useCustomersStore } from '@/stores/CustomersStore';
-import { storeToRefs } from 'pinia';
-
-const customersStore = useCustomersStore();
-const {
-  nameQuery,
-  streetQuery,
-  filteredCustomers
-  } = storeToRefs(customersStore);
-
-const router = useRouter();
-
-const navToCustomer = (id) => {
-  router.push({
-    name: 'Kundendetails',
-    params: { id },
-  });
-};
-</script>
 
 <style scoped>
 .customers-container {

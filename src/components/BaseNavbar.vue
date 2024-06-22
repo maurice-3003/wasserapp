@@ -55,5 +55,6 @@ h2 {
   font-size: 2em;
   margin: 0.3em;
   align-content: center;
+  color: white;
 }
 </style>

@@ -10,8 +10,8 @@ const { currentCustomer } = storeToRefs(customerStore);
   <div class="card-container card-medium">
     <h2>Bemerkungen</h2>
     <label for="cust-service-card-notes">Bemerkungen:</label>
-    <textarea id="cust-service-card-notes" v-model="currentCustomer.notes"
-      @input="emitUpdate"></textarea>
+    <textarea id="cust-service-card-notes" v-model="currentCustomer.notes">
+    </textarea>
   </div>
 </template>
 

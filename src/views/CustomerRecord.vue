@@ -1,21 +1,6 @@
-<template>
-  <div class="customer-record-container">
-    <CustomerRecordHeader
-      :customerChanged="customerChanged"
-      @updateDbEntry="updateCustomerDbEntry"
-    />
-    <CustomerAddressCard />
-    <CustomerContactCard />
-    <BedInfoCard />
-    <CustomerPaymentInfoCard />
-    <CustomerServiceCard />
-    <CustomerNotes />
-  </div>
-</template>
-
 <script setup>
-import { ref, computed, onMounted, onUpdated } from 'vue';
-import { useRoute } from 'vue-router';
+import { ref, onMounted, watch } from 'vue';
+import { onBeforeRouteLeave, onBeforeRouteUpdate, useRoute } from 'vue-router';
 import { useCustomersStore } from '@/stores/CustomersStore';
 import CustomerAddressCard from '@/components/CustRecComponents/CustomerAddressCard.vue';
 import CustomerContactCard from '@/components/CustRecComponents/CustomerContactCard.vue';
@@ -27,28 +12,60 @@ import CustomerNotes from '@/components/CustRecComponents/CustomerNotes.vue';
 import { storeToRefs } from 'pinia';
 
 const customersStore = useCustomersStore();
-const { updateCustomerDbEntry } = customersStore;
 const {
   currentCustomerId,
+  originalCustomer,
   currentCustomer,
-  originalCustomer
- } = storeToRefs(customersStore);
+  customerChanged
+} = storeToRefs(customersStore);
+const { updateCustomerDbEntry } = customersStore;
+
 
 const route = useRoute();
 const id = ref(route.params.id);
 currentCustomerId.value = id.value;
-// const origCustomer = ref(JSON.parse(JSON.stringify(currentCustomer.value)));
+originalCustomer.value = JSON.parse(JSON.stringify(currentCustomer.value));
 
-onMounted(() => {
+watch(route, () => {
+  currentCustomerId.value = route.params.id;
   originalCustomer.value = JSON.parse(JSON.stringify(currentCustomer.value));
+})
+
+onBeforeRouteLeave(() => {
+  if(customerChanged.value) {
+    const confirmMessage = 'Leave: Änderungen speichern?';
+    if (confirm(confirmMessage)) {
+      //updateCustomerDbEntry();
+    } else {
+      return false;
+    }
+  }
 });
 
-const customerChanged = computed(() => {
-  // Implement a proper object comparison?
-  return JSON.stringify(currentCustomer.value) !==
-    JSON.stringify(originalCustomer.value);
+onBeforeRouteUpdate(() => {
+  if(customerChanged.value) {
+    const confirmMessage = 'Update: Änderungen speichern?';
+    if (confirm(confirmMessage)) {
+      //updateCustomerDbEntry();
+    } else {
+      return false;
+    }
+  }
 });
+
 </script>
+
+<template>
+  <div class="customer-record-container">
+    <CustomerRecordHeader />
+    <CustomerAddressCard />
+    <CustomerContactCard />
+    <BedInfoCard />
+    <CustomerPaymentInfoCard />
+    <CustomerServiceCard />
+    <CustomerNotes />
+  </div>
+</template>
 
 <style scoped>
 .customer-record-container {

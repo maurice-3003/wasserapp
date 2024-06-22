@@ -11,36 +11,32 @@ const { currentCustomer } = storeToRefs(customerStore);
     <h2>Anschrift</h2>
     <form autocomplete="off">
       <label for="cust-addr-card-salutation">Anrede:</label>
-      <input type="text" id="cust-addr-card-salutation" name="salutation"
-        required v-model="currentCustomer.salutation" @input="emitUpdate">
+      <input type="text" id="cust-addr-card-salutation"
+        v-model="currentCustomer.salutation">
 
       <label for="cust-addr-card-fullname">Vor- und Nachname:</label>
-      <input type="text" id="cust-addr-card-fullname" name="fullname"
-        required v-model="currentCustomer.fullName" @input="emitUpdate">
+      <input type="text" id="cust-addr-card-fullname" required
+        v-model="currentCustomer.fullName">
 
       <label for="cust-addr-card-addrsupplement">Adresszusatz:</label>
       <input type="text" id="cust-addr-card-addrsupplement"
-        name="address-supplement" v-model="currentCustomer.addressSupplement"
-        @input="emitUpdate">
+        v-model="currentCustomer.addressSupplement">
 
       <label for="cust-addr-card-streetaddress">Straße, Hausnummer:</label>
-      <input type="text" id="cust-addr-card-streetaddress" name="street-address"
-        required v-model="currentCustomer.streetAddress" @input="emitUpdate">
+      <input type="text" id="cust-addr-card-streetaddress"
+        v-model="currentCustomer.streetAddress">
 
       <label for="cust-addr-card-zipcode">Postleitzahl:</label>
-      <input type="text" id="cust-addr-card-zipcode" name="zipcode"
-        required v-model="currentCustomer.zipCode" @input="emitUpdate">
+      <input type="text" id="cust-addr-card-zipcode"
+        v-model="currentCustomer.zipCode">
 
       <label for="cust-addr-card-city">Ort:</label>
-      <input type="text" id="cust-addr-card-city" name="city"
-        required v-model="currentCustomer.city" @input="emitUpdate">
+      <input type="text" id="cust-addr-card-city"
+        v-model="currentCustomer.city">
 
       <label for="cust-addr-card-greeting">Grußformel:</label>
-      <input type="text" id="cust-addr-card-greeting" name="greeting"
-        required v-model="currentCustomer.greeting" @input="emitUpdate">
+      <input type="text" id="cust-addr-card-greeting"
+        v-model="currentCustomer.greeting">
     </form>
   </div>
 </template>
-
-<style scoped>
-</style>

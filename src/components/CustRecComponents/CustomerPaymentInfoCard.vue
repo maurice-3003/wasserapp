@@ -12,33 +12,27 @@ const { currentCustomer } = storeToRefs(customerStore);
     <form autocomplete="off">
       <label for="cust-pay-info-card-bank-name">Bank:</label>
       <input type="text" id="cust-pay-info-card-bank-name"
-        name="bank-name" v-model="currentCustomer.bankName"
-        @input="emitUpdate">
+        v-model="currentCustomer.bankName">
 
       <label for="cust-pay-info-card-bank-acc-no">Kontonummer:</label>
       <input type="text" id="cust-pay-info-card-bank-acc-no"
-        name="bank-acc-no" v-model="currentCustomer.bankAccountNo"
-        @input="emitUpdate">
+        v-model="currentCustomer.bankAccountNo">
 
       <label for="cust-pay-info-card-bank-sort-code">Bankleitzahl:</label>
       <input type="text" id="cust-pay-info-card-bank-sort-code"
-        name="bank-sort-code" v-model="currentCustomer.bankSortCode"
-        @input="emitUpdate">
+        v-model="currentCustomer.bankSortCode">
 
       <label for="cust-pay-info-card-iban">IBAN:</label>
       <input type="text" id="cust-pay-info-card-iban"
-        name="iban" v-model="currentCustomer.iban"
-        @input="emitUpdate">
+        v-model="currentCustomer.iban">
 
       <label for="cust-pay-info-card-bic">BIC:</label>
       <input type="text" id="cust-pay-info-card-bic"
-        name="bic" v-model="currentCustomer.bankIdentifierCode"
-        @input="emitUpdate">
+        v-model="currentCustomer.bankIdentifierCode">
 
       <label for="cust-pay-info-card-direct-debit">Lastschrift:</label>
       <input type="text" id="cust-pay-info-card-direct-debit"
-        name="direct-debit" v-model="currentCustomer.directDebit"
-        @input="emitUpdate">
+        v-model="currentCustomer.directDebit">
     </form>
   </div>
 </template>

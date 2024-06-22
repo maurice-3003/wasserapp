@@ -4,41 +4,28 @@ import { storeToRefs } from 'pinia';
 import { useRouter } from 'vue-router';
 
 const customerStore = useCustomersStore();
+
 const {
   currentCustomer,
   hasPreviousCustomer,
   hasNextCustomer,
-  sortedCustomers,
-  currentIndex,
-  currentCustomerId,
-  originalCustomer
+  customerChanged,
 } = storeToRefs(customerStore);
-const { updateCustomerDbEntry } = customerStore;
+
+const {
+  updateCustomerDbEntry,
+  goToPreviousCustomer,
+  goToNextCustomer
+ } = customerStore;
 
 const router = useRouter();
-
-const props = defineProps(['customerChanged']);
-
-function goToNextCustomer() {
-  const nextCustomer = sortedCustomers.value[currentIndex.value + 1];
-  currentCustomerId.value = nextCustomer._id;
-  originalCustomer.value = JSON.parse(JSON.stringify(nextCustomer));
-  router.push({ name: 'Kundendetails', params: { id: nextCustomer._id } });
-}
-
-function goToPreviousCustomer() {
-  const previousCustomer = sortedCustomers.value[currentIndex.value - 1];
-  currentCustomerId.value = previousCustomer._id;
-  originalCustomer.value = JSON.parse(JSON.stringify(previousCustomer));
-  router.push({ name: 'Kundendetails', params: { id: previousCustomer._id } });
-}
 </script>
 
 <template>
   <div class="customer-record-header">
     <div>
       <button
-        @click="goToPreviousCustomer"
+        @click="goToPreviousCustomer(router)"
         :disabled="!hasPreviousCustomer"
         ><<<<</button>
     </div>
@@ -48,7 +35,7 @@ function goToPreviousCustomer() {
     </div>
     <div>
       <button
-        @click="goToNextCustomer"
+        @click="goToNextCustomer(router)"
         :disabled="!hasNextCustomer"
         >>>>></button>
     </div>
@@ -85,5 +72,12 @@ function goToPreviousCustomer() {
 input{
   background-color: rgba(0, 0, 0, 0.15);
   text-align: center;
+  display: block;
+  width: 100%;
+  height: 1.5em;
+  font-size: var(--base-font-size);
+  border: none;
+  border-radius: 0.3em;
+  padding: 0.2em;
 }
 </style>

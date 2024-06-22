@@ -17,15 +17,6 @@ export const useCustomersStore = defineStore('customers', () => {
       customersLoading.value = false;
     }
   }
-  async function updateCustomerDbEntry() {
-    try {
-      await api.updateCustomerDetails(currentCustomerId.value, currentCustomer.value);
-      console.log('Update successful');
-      originalCustomer.value = JSON.parse(JSON.stringify(currentCustomer.value));
-    } catch (error) {
-      console.error(error);
-    }
-  }
 
   const sortedCustomers = computed(() => {
     return customers.value.toSorted((a, b) => {
@@ -47,7 +38,28 @@ export const useCustomersStore = defineStore('customers', () => {
     });
   });
 
+  const originalCustomer = ref({});
+  const customerChanged = computed(() => {
+    // Implement a proper object comparison?
+    return JSON.stringify(currentCustomer.value) !==
+      JSON.stringify(originalCustomer.value);
+  });
+  async function updateCustomerDbEntry() {
+    try {
+      await api.updateCustomerDetails(currentCustomerId.value, currentCustomer.value);
+      console.log('Update successful');
+      originalCustomer.value = JSON.parse(JSON.stringify(currentCustomer.value));
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
+
+
   const currentCustomerId = ref(null);
+  const currentCustomer = computed(() => {
+    return sortedCustomers.value.find(c => c._id === currentCustomerId.value);
+  });
   const currentIndex = computed(() => {
     return sortedCustomers.value.findIndex(c => c._id === currentCustomerId.value);
   });
@@ -57,10 +69,20 @@ export const useCustomersStore = defineStore('customers', () => {
   const hasNextCustomer = computed(() => {
     return currentIndex.value < sortedCustomers.value.length - 1;
   });
-  const currentCustomer = computed(() => {
-    return sortedCustomers.value.find(c => c._id === currentCustomerId.value);
-  });
-  const originalCustomer = ref({});
+  function goToCustomerById(id, router) {
+    router.push({ name: 'Kundendetails', params: { id } });
+  }
+  function goToPreviousCustomer(router) {
+    if (!hasPreviousCustomer) {return}
+    const previousCustomer = sortedCustomers.value[currentIndex.value - 1];
+    router.push({ name: 'Kundendetails', params: { id: previousCustomer._id } });
+  }
+  function goToNextCustomer(router) {
+    if (!hasNextCustomer) {return}
+    const nextCustomer = sortedCustomers.value[currentIndex.value + 1];
+    router.push({ name: 'Kundendetails', params: { id: nextCustomer._id } });
+  }
+
 
   return {
     customers,
@@ -76,6 +98,10 @@ export const useCustomersStore = defineStore('customers', () => {
     hasPreviousCustomer,
     hasNextCustomer,
     currentCustomer,
-    originalCustomer
+    originalCustomer,
+    customerChanged,
+    goToPreviousCustomer,
+    goToNextCustomer,
+    goToCustomerById
   };
 });

@@ -23,7 +23,6 @@ const routes = [
         path: '/customers/:id',
         name: 'Kundendetails',
         component: () => import('@/views/CustomerRecord.vue'),
-        props: true
     }
 ];
 

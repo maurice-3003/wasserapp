@@ -11,39 +11,36 @@ const { currentCustomer } = storeToRefs(customerStore);
     <h2>Bettinformationen</h2>
     <form autocomplete="off">
       <label for="bed-info-card-bed-type">Bett-Typ:</label>
-      <input type="text" id="bed-info-card-bed-type" name="bed-type"
-        v-model="currentCustomer.bedType" @input="emitUpdate">
+      <input type="text" id="bed-info-card-bed-type"
+        v-model="currentCustomer.bedType">
 
       <label for="bed-info-card-bed-system">Bett-System:</label>
-      <input type="text" id="bed-info-card-bed-system" name="bed-system"
-        v-model="currentCustomer.bedSystem" @input="emitUpdate">
+      <input type="text" id="bed-info-card-bed-system"
+        v-model="currentCustomer.bedSystem">
 
       <label for="bed-info-card-bed-size">Bett-Größe:</label>
-      <input type="text" id="bed-info-card-bed-size" name="bed-size"
-        v-model="currentCustomer.bedSize" @input="emitUpdate">
+      <input type="text" id="bed-info-card-bed-size"
+        v-model="currentCustomer.bedSize">
 
       <label for="bed-info-card-mattr-mfr">Matr.-Hersteller:</label>
-      <input type="text" id="bed-info-card-mattr-mfr" name="mattres-mfr"
-        v-model="currentCustomer.mattressManufacturer" @input="emitUpdate">
+      <input type="text" id="bed-info-card-mattr-mfr"
+        v-model="currentCustomer.mattressManufacturer">
 
       <label for="bed-info-card-mattr-system">Matr.-System:</label>
-      <input type="text" id="bed-info-card-mattr-system" name="mattres-system"
-        v-model="currentCustomer.mattressSystem" @input="emitUpdate">
+      <input type="text" id="bed-info-card-mattr-system"
+        v-model="currentCustomer.mattressSystem">
 
       <label for="bed-info-card-mattr-topper">Matr.-Auflage:</label>
-      <input type="text" id="bed-info-card-mattr-topper" name="mattres-topper"
-        v-model="currentCustomer.mattressTopper" @input="emitUpdate">
+      <input type="text" id="bed-info-card-mattr-topper"
+        v-model="currentCustomer.mattressTopper">
 
       <label for="bed-info-card-care-cycle">Pflegeintervall:</label>
-      <input type="text" id="bed-info-card-care-cycle" name="care-cycle"
-        v-model="currentCustomer.careCycle" @input="emitUpdate">
+      <input type="text" id="bed-info-card-care-cycle"
+        v-model="currentCustomer.careCycle">
 
       <label for="bed-info-card-buy-date">Kaufdatum:</label>
-      <input type="text" id="bed-info-card-buy-date" name="bed-purchase-date"
-        v-model="currentCustomer.dateBedPurchased" @input="emitUpdate">
+      <input type="text" id="bed-info-card-buy-date"
+        v-model="currentCustomer.dateBedPurchased">
     </form>
   </div>
 </template>
-
-<style scoped>
-</style>

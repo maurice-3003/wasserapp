@@ -12,29 +12,23 @@ const { currentCustomer } = storeToRefs(customerStore);
     <form autocomplete="off">
       <label for="cust-contact-card-mobile-no">Telefon Mobil:</label>
       <input type="text" id="cust-contact-card-mobile-no"
-        name="phone-mobile" v-model="currentCustomer.phoneNoMobile"
-        @input="emitUpdate">
+        v-model="currentCustomer.phoneNoMobile">
 
       <label for="cust-contact-card-landline-no">Telefon Festnetz:</label>
       <input type="text" id="cust-contact-card-landline-no"
-        name="phone-landline" v-model="currentCustomer.phoneNoLandline"
-        @input="emitUpdate">
+        v-model="currentCustomer.phoneNoLandline">
 
       <label for="cust-contact-card-business-no">Telefon geschäftlich:</label>
       <input type="text" id="cust-contact-card-business-no"
-        name="phone-business" v-model="currentCustomer.phoneNoBusiness"
-        @input="emitUpdate">
+        v-model="currentCustomer.phoneNoBusiness">
 
       <label for="cust-contact-card-fax-no">Fax:</label>
       <input type="text" id="cust-contact-card-fax-no"
-        name="fax-no" v-model="currentCustomer.faxNo"  @input="emitUpdate">
+        v-model="currentCustomer.faxNo">
 
       <label for="cust-contact-card-email">E-Mail:</label>
       <input type="text" id="cust-contact-card-email"
-        name="email" v-model="currentCustomer.email"  @input="emitUpdate">
+        v-model="currentCustomer.email">
     </form>
   </div>
 </template>
-
-<style scoped>
-</style>
