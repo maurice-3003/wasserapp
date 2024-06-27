@@ -4,25 +4,25 @@ const routes = [
     {
         path: '/',
         name: 'Home',
-        component: () => import('@/views/HomePage.vue'),
+        component: () => import('@/pages/HomePage.vue'),
         meta: { navbarLink: true }
     },
     {
         path: '/customers',
         name: 'Kundenstamm',
-        component: () => import('@/views/CustomerList.vue'),
+        component: () => import('@/pages/CustomerList.vue'),
         meta: { navbarLink: true }
     },
     {
         path: '/orders',
         name: 'Bestellungen',
-        component: () => import('@/views/OrderList.vue'),
+        component: () => import('@/pages/OrderList.vue'),
         meta: { navbarLink: true }
     },
     {
         path: '/customers/:id',
         name: 'Kundendetails',
-        component: () => import('@/views/CustomerRecord.vue'),
+        component: () => import('@/pages/CustomerRecord.vue'),
     }
 ];
 
