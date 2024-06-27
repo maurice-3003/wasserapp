@@ -44,6 +44,13 @@ export const useCustomersStore = defineStore('customers', () => {
     return JSON.stringify(currentCustomer.value) !==
       JSON.stringify(originalCustomer.value);
   });
+  function resetToOriginalCustomer() {
+    if (originalCustomer.value !== null || undefined && currentIndex.value ==! -1) {
+      console.log('Resetting customer...');
+      const index = customers.value.findIndex(c => c._id === currentCustomerId.value);
+      customers.value[index] = { ...originalCustomer.value };
+    }
+  }
   async function updateCustomerDbEntry() {
     try {
       await api.updateCustomerDetails(currentCustomerId.value, currentCustomer.value);
@@ -102,6 +109,7 @@ export const useCustomersStore = defineStore('customers', () => {
     customerChanged,
     goToPreviousCustomer,
     goToNextCustomer,
-    goToCustomerById
+    goToCustomerById,
+    resetToOriginalCustomer
   };
 });

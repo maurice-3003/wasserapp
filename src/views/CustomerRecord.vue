@@ -1,7 +1,8 @@
 <script setup>
-import { ref, onMounted, watch } from 'vue';
+import { watch } from 'vue';
 import { onBeforeRouteLeave, onBeforeRouteUpdate, useRoute } from 'vue-router';
 import { useCustomersStore } from '@/stores/CustomersStore';
+import { storeToRefs } from 'pinia';
 import CustomerAddressCard from '@/components/CustRecComponents/CustomerAddressCard.vue';
 import CustomerContactCard from '@/components/CustRecComponents/CustomerContactCard.vue';
 import BedInfoCard from '@/components/CustRecComponents/BedInfoCard.vue';
@@ -9,7 +10,6 @@ import CustomerPaymentInfoCard from '@/components/CustRecComponents/CustomerPaym
 import CustomerRecordHeader from '@/components/CustRecComponents/CustomerRecordHeader.vue';
 import CustomerServiceCard from '@/components/CustRecComponents/CustomerServiceCard.vue';
 import CustomerNotes from '@/components/CustRecComponents/CustomerNotes.vue';
-import { storeToRefs } from 'pinia';
 
 const customersStore = useCustomersStore();
 const {
@@ -18,12 +18,14 @@ const {
   currentCustomer,
   customerChanged
 } = storeToRefs(customersStore);
-const { updateCustomerDbEntry } = customersStore;
+const {
+  updateCustomerDbEntry,
+  resetToOriginalCustomer
+  } = customersStore;
 
 
 const route = useRoute();
-const id = ref(route.params.id);
-currentCustomerId.value = id.value;
+currentCustomerId.value = route.params.id;
 originalCustomer.value = JSON.parse(JSON.stringify(currentCustomer.value));
 
 watch(route, () => {
@@ -37,6 +39,7 @@ onBeforeRouteLeave(() => {
     if (confirm(confirmMessage)) {
       //updateCustomerDbEntry();
     } else {
+      resetToOriginalCustomer();
       return false;
     }
   }
@@ -48,11 +51,11 @@ onBeforeRouteUpdate(() => {
     if (confirm(confirmMessage)) {
       //updateCustomerDbEntry();
     } else {
+      resetToOriginalCustomer();
       return false;
     }
   }
 });
-
 </script>
 
 <template>
