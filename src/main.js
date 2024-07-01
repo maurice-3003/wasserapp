@@ -1,5 +1,4 @@
-import '@/assets/main.css';
-import '@/assets/cards.css';
+import '@/assets/styles.css';
 import { createApp } from 'vue';
 import App from './App.vue';
 import router from './router/router';
@@ -11,4 +10,3 @@ const app = createApp(App);
 app.use(router);
 app.use(pinia);
 app.mount('#app');
-

@@ -2,22 +2,22 @@
 import { computed } from 'vue';
 import { routes } from '../router/router';
 
-const navLinks = computed(() => 
-  routes.filter(route => route.meta && route.meta.navbarLink)
+const navLinks = computed(() =>
+  routes.filter((route) => route.meta && route.meta.navbarLink),
 );
 </script>
 
 <template>
   <div class="nav-container">
     <nav>
-        <h2>Menü</h2>
-        <ul>
+      <h2>Menü</h2>
+      <ul>
         <li v-for="navLink in navLinks" :key="navLink.name">
-            <RouterLink :to="navLink.path">{{ navLink.name }}</RouterLink>
+          <RouterLink :to="navLink.path">{{ navLink.name }}</RouterLink>
         </li>
-        </ul>
+      </ul>
     </nav>
-</div>
+  </div>
 </template>
 
 <style scoped>
@@ -46,7 +46,10 @@ li:first-child {
   border-top: 1px solid white;
 }
 
-a:link, a:visited, a:hover, a:active {
+a:link,
+a:visited,
+a:hover,
+a:active {
   color: white;
   text-decoration: none;
 }

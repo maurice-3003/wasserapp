@@ -11,27 +11,41 @@ const { currentCustomer } = storeToRefs(customerStore);
     <h2>Service</h2>
     <form autocomplete="off">
       <label for="cust-service-card-care-cycle">Pflegeintervall:</label>
-      <input type="text" id="cust-service-card-care-cycle"
-        v-model="currentCustomer.careCycle">
+      <input
+        type="text"
+        id="cust-service-card-care-cycle"
+        v-model="currentCustomer.careCycle"
+      />
 
       <label for="cust-service-card-care-products">Bedarf:</label>
-      <input type="text" id="cust-service-card-care-products"
-        v-model="currentCustomer.requiredCareProducts">
+      <input
+        type="text"
+        id="cust-service-card-care-products"
+        v-model="currentCustomer.requiredCareProducts"
+      />
 
       <label for="cust-service-card-notification">Benachrichtigung:</label>
-      <input type="text" id="cust-service-card-notification"
-        v-model="currentCustomer.careNotification">
+      <input
+        type="text"
+        id="cust-service-card-notification"
+        v-model="currentCustomer.careNotification"
+      />
 
       <label for="cust-service-card-driving-distance">Fahrstrecke:</label>
-      <input type="text" id="cust-service-card-driving-distance"
-        v-model="currentCustomer.drivingDistance">
+      <input
+        type="text"
+        id="cust-service-card-driving-distance"
+        v-model="currentCustomer.drivingDistance"
+      />
 
       <label for="cust-service-card-driving-time">Fahrzeit:</label>
-      <input type="text" id="cust-service-card-driving-time"
-        v-model="currentCustomer.drivingTime">
+      <input
+        type="text"
+        id="cust-service-card-driving-time"
+        v-model="currentCustomer.drivingTime"
+      />
     </form>
   </div>
 </template>
 
-<style scoped>
-</style>
+<style scoped></style>

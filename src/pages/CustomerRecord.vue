@@ -16,13 +16,9 @@ const {
   currentCustomerId,
   originalCustomer,
   currentCustomer,
-  customerChanged
+  customerChanged,
 } = storeToRefs(customersStore);
-const {
-  updateCustomerDbEntry,
-  resetToOriginalCustomer
-  } = customersStore;
-
+const { updateCustomerDbEntry, resetToOriginalCustomer } = customersStore;
 
 const route = useRoute();
 currentCustomerId.value = route.params.id;
@@ -31,10 +27,10 @@ originalCustomer.value = JSON.parse(JSON.stringify(currentCustomer.value));
 watch(route, () => {
   currentCustomerId.value = route.params.id;
   originalCustomer.value = JSON.parse(JSON.stringify(currentCustomer.value));
-})
+});
 
 onBeforeRouteLeave(() => {
-  if(customerChanged.value) {
+  if (customerChanged.value) {
     const confirmMessage = 'Leave: Änderungen speichern?';
     if (confirm(confirmMessage)) {
       //updateCustomerDbEntry();
@@ -46,7 +42,7 @@ onBeforeRouteLeave(() => {
 });
 
 onBeforeRouteUpdate(() => {
-  if(customerChanged.value) {
+  if (customerChanged.value) {
     const confirmMessage = 'Update: Änderungen speichern?';
     if (confirm(confirmMessage)) {
       //updateCustomerDbEntry();

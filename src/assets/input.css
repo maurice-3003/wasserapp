@@ -1,3 +1,8 @@
+/* npx tailwindcss -i ./src/assets/input.css -o ./src/assets/styles.css --watch */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 :root {
   --wbp-orange: rgb(205, 114, 102);
   --container-padding: 0.4em;
@@ -6,10 +11,10 @@
   --base-font-size: 1.2em;
 }
 
-*{
+* {
   margin: 0;
   padding: 0;
-  box-sizing: border-box; 
+  box-sizing: border-box;
   font-family: Helvetica, Arial, sans-serif;
   list-style-type: none;
 }
@@ -54,4 +59,25 @@ textarea {
 textarea:focus {
   box-shadow: inset 0 0 0 3px var(--wbp-orange);
   outline: none;
+}
+
+.card-container {
+  background-color: darkgray;
+  border-radius: var(--base-border-radius);
+  padding: var(--container-padding);
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.card-small {
+  min-width: 200px;
+}
+
+.card-medium {
+  min-width: 400px;
+}
+
+.card-large {
+  min-width: 600px;
 }

@@ -5,11 +5,8 @@ import { storeToRefs } from 'pinia';
 
 const customersStore = useCustomersStore();
 
-const {
-  nameQuery,
-  streetQuery,
-  filteredCustomers
-  } = storeToRefs(customersStore);
+const { nameQuery, streetQuery, filteredCustomers } =
+  storeToRefs(customersStore);
 
 const { goToCustomerById } = customersStore;
 
@@ -36,8 +33,11 @@ const router = useRouter();
         </tr>
       </thead>
       <tbody>
-        <tr v-for="customer in filteredCustomers" :key="customer._id"
-          @click="goToCustomerById(customer._id, router)">
+        <tr
+          v-for="customer in filteredCustomers"
+          :key="customer._id"
+          @click="goToCustomerById(customer._id, router)"
+        >
           <td>{{ customer.nameID }}</td>
           <td>{{ customer.streetAddress }}</td>
           <td>{{ customer.zipCode }}</td>
@@ -62,7 +62,8 @@ table {
   width: 100%;
 }
 
-th, td {
+th,
+td {
   word-wrap: break-word;
   text-align: left;
 }
@@ -71,7 +72,7 @@ thead {
   position: sticky;
   top: 0;
 }
-  
+
 th {
   background-color: #888888;
   color: white;

@@ -12,11 +12,8 @@ const {
   customerChanged,
 } = storeToRefs(customerStore);
 
-const {
-  updateCustomerDbEntry,
-  goToPreviousCustomer,
-  goToNextCustomer
- } = customerStore;
+const { updateCustomerDbEntry, goToPreviousCustomer, goToNextCustomer } =
+  customerStore;
 
 const router = useRouter();
 </script>
@@ -27,22 +24,25 @@ const router = useRouter();
       <button
         @click="goToPreviousCustomer(router)"
         :disabled="!hasPreviousCustomer"
-        ><<<<</button>
+      >
+        <<<<
+      </button>
     </div>
     <div class="input-container">
-      <input type="text" id="cust-header-card-name-id"
-        v-model="currentCustomer.nameID" required>
+      <input
+        type="text"
+        id="cust-header-card-name-id"
+        v-model="currentCustomer.nameID"
+        required
+      />
     </div>
     <div>
-      <button
-        @click="goToNextCustomer(router)"
-        :disabled="!hasNextCustomer"
-        >>>>></button>
+      <button @click="goToNextCustomer(router)" :disabled="!hasNextCustomer">
+        >>>>
+      </button>
     </div>
     <div class="button-container" v-if="customerChanged">
-      <button
-        @click="updateCustomerDbEntry"
-        >Änderungen speichern</button>
+      <button @click="updateCustomerDbEntry">Änderungen speichern</button>
     </div>
   </div>
 </template>
@@ -61,7 +61,7 @@ const router = useRouter();
 .button-container {
   display: flex;
   align-items: center;
-  padding: var(--container-padding)
+  padding: var(--container-padding);
 }
 
 .input-container {
@@ -69,7 +69,7 @@ const router = useRouter();
   flex: 0.8;
 }
 
-input{
+input {
   background-color: rgba(0, 0, 0, 0.15);
   text-align: center;
   display: block;

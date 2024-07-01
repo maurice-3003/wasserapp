@@ -3,7 +3,6 @@ import { ref, computed } from 'vue';
 import api from '@/services/api';
 
 export const useCustomersStore = defineStore('customers', () => {
-  
   const customers = ref([]);
   const customersLoading = ref(Boolean);
   async function loadCustomers() {
@@ -32,43 +31,57 @@ export const useCustomersStore = defineStore('customers', () => {
     }
     const nameQueryLower = nameQuery.value.toLowerCase();
     const streetQueryLower = streetQuery.value.toLowerCase();
-    return sortedCustomers.value.filter(c => {
-      return c.nameID.toLowerCase().includes(nameQueryLower) &&
-        c.streetAddress.toLowerCase().includes(streetQueryLower);
+    return sortedCustomers.value.filter((c) => {
+      return (
+        c.nameID.toLowerCase().includes(nameQueryLower) &&
+        c.streetAddress.toLowerCase().includes(streetQueryLower)
+      );
     });
   });
 
   const originalCustomer = ref({});
   const customerChanged = computed(() => {
     // Implement a proper object comparison?
-    return JSON.stringify(currentCustomer.value) !==
-      JSON.stringify(originalCustomer.value);
+    return (
+      JSON.stringify(currentCustomer.value) !==
+      JSON.stringify(originalCustomer.value)
+    );
   });
   function resetToOriginalCustomer() {
-    if (originalCustomer.value !== null || undefined && currentIndex.value ==! -1) {
+    if (
+      originalCustomer.value !== null ||
+      (undefined && currentIndex.value == !-1)
+    ) {
       console.log('Resetting customer...');
-      const index = customers.value.findIndex(c => c._id === currentCustomerId.value);
+      const index = customers.value.findIndex(
+        (c) => c._id === currentCustomerId.value,
+      );
       customers.value[index] = { ...originalCustomer.value };
     }
   }
   async function updateCustomerDbEntry() {
     try {
-      await api.updateCustomerDetails(currentCustomerId.value, currentCustomer.value);
+      await api.updateCustomerDetails(
+        currentCustomerId.value,
+        currentCustomer.value,
+      );
       console.log('Update successful');
-      originalCustomer.value = JSON.parse(JSON.stringify(currentCustomer.value));
+      originalCustomer.value = JSON.parse(
+        JSON.stringify(currentCustomer.value),
+      );
     } catch (error) {
       console.error(error);
     }
   }
 
-
-
   const currentCustomerId = ref(null);
   const currentCustomer = computed(() => {
-    return sortedCustomers.value.find(c => c._id === currentCustomerId.value);
+    return sortedCustomers.value.find((c) => c._id === currentCustomerId.value);
   });
   const currentIndex = computed(() => {
-    return sortedCustomers.value.findIndex(c => c._id === currentCustomerId.value);
+    return sortedCustomers.value.findIndex(
+      (c) => c._id === currentCustomerId.value,
+    );
   });
   const hasPreviousCustomer = computed(() => {
     return currentIndex.value > 0;
@@ -80,16 +93,22 @@ export const useCustomersStore = defineStore('customers', () => {
     router.push({ name: 'Kundendetails', params: { id } });
   }
   function goToPreviousCustomer(router) {
-    if (!hasPreviousCustomer) {return}
+    if (!hasPreviousCustomer) {
+      return;
+    }
     const previousCustomer = sortedCustomers.value[currentIndex.value - 1];
-    router.push({ name: 'Kundendetails', params: { id: previousCustomer._id } });
+    router.push({
+      name: 'Kundendetails',
+      params: { id: previousCustomer._id },
+    });
   }
   function goToNextCustomer(router) {
-    if (!hasNextCustomer) {return}
+    if (!hasNextCustomer) {
+      return;
+    }
     const nextCustomer = sortedCustomers.value[currentIndex.value + 1];
     router.push({ name: 'Kundendetails', params: { id: nextCustomer._id } });
   }
-
 
   return {
     customers,
@@ -110,6 +129,6 @@ export const useCustomersStore = defineStore('customers', () => {
     goToPreviousCustomer,
     goToNextCustomer,
     goToCustomerById,
-    resetToOriginalCustomer
+    resetToOriginalCustomer,
   };
 });

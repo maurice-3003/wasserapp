@@ -7,7 +7,7 @@
 </template>
 
 <script setup>
-import BaseNavbar from './components/BaseNavbar.vue'
+import BaseNavbar from './components/BaseNavbar.vue';
 import LoadingAnimation from './components/LoadingAnimation.vue';
 import { RouterView } from 'vue-router';
 import { useCustomersStore } from './stores/CustomersStore';
